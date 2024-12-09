@@ -29,6 +29,11 @@ class LeafNode(HTMLNODE):
     
     def to_html(self):
         print(f'value: {self.value}')
+        if self.tag == "img":
+        # Ensure `props` contains `src` and `alt`
+            src = self.props.get("src", "")
+            alt = self.props.get("alt", "")
+            return f'<img src="{src}" alt="{alt}">'
         if not self.value:
             raise ValueError("All leaf nodes must have a value")
         if not self.tag:

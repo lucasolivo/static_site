@@ -31,8 +31,10 @@ def generate_page(from_path, template_path, dest_path):
         template_file = f.read()
     print(f'from the garden: {from_file}')
     html_node = markdown_to_html_node(from_file)
-    print("Full node structure:")
-    print_node_structure(html_node)
+  #  if not html_node.value:
+ #       print("Full node structure:")
+ #       print_node_structure(html_node)
+  #      return
     html = html_node.to_html()
     title = extract_title(from_file)
     template_file = template_file.replace('{{ Title }}', title)
@@ -48,8 +50,6 @@ def generate_pages_recursive(dir_path_content, template_path, dest_dir_path):
         if os.path.isfile(from_path):
             if not filename.endswith('md'):
                 continue
-            print(from_path)
-            print(dest_path)
             dest_path = Path(dest_path).with_suffix(".html")
             generate_page(from_path, template_path, dest_path)
         else:
@@ -61,6 +61,7 @@ def print_node_structure(node, indent=0):
         return
         
     print(" " * indent + f"Type: {type(node)}")
+    print(" " * indent + f"Tag: {node.tag}")
     print(" " * indent + f"Value: {node.value}")
     print(" " * indent + f"Props: {node.props}")
     
